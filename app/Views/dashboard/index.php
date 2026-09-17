@@ -13,7 +13,7 @@
 
         <nav class="d-flex gap-2">
             <a class="btn btn-primary" href="<?= BASE_URL ?>/mahasiswa">Mahasiswa</a>
-            <a class="btn btn-primary" href="<?= BASE_URL ?>/dosen">Dosen</a>
+            <a class="btn btn-primary" href="<?= BASE_URL ?>/dosen">Data Dosen</a>
             <a class="btn btn-outline-danger" href="<?= BASE_URL ?>/logout">Logout</a>
         </nav>
     </main>

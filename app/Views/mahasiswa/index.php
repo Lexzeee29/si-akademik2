@@ -27,6 +27,7 @@
                                 <th>NIM</th>
                                 <th>Nama</th>
                                 <th>Prodi</th>
+                                <th>Nama Dosen</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -36,6 +37,7 @@
                                     <td><?= htmlspecialchars($mhs['nim']) ?></td>
                                     <td><?= htmlspecialchars($mhs['nama']) ?></td>
                                     <td><?= htmlspecialchars($mhs['prodi']) ?></td>
+                                    <td><?= htmlspecialchars($mhs['nama_dosen'] ?? '-') ?></td>
                                     <td>
                                         <a class="btn btn-sm btn-outline-secondary" href="<?= BASE_URL ?>/mahasiswa/detail?nim=<?= urlencode($mhs['nim']) ?>">
                                             Detail

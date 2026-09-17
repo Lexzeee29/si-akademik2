@@ -6,7 +6,9 @@ class MahasiswaController
 {
     public function index()
     {
-        $model = new Mahasiswa();
+        global $pdo;
+
+        $model = new Mahasiswa($pdo);
 
         $mahasiswa = $model->getAll();
 
@@ -15,7 +17,9 @@ class MahasiswaController
 
     public function detail()
     {
-        $model = new Mahasiswa();
+        global $pdo;
+
+        $model = new Mahasiswa($pdo);
         
         $nim = $_GET['nim'];
 

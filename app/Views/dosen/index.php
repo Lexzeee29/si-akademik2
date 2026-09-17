@@ -13,29 +13,45 @@
                     <h1 class="text-primary mb-1">Politeknik Negeri Jember</h1>
                     <h2 class="h4 text-secondary mb-0">Daftar Dosen</h2>
                 </div>
-                <a class="btn btn-secondary" href="<?= BASE_URL ?>/dashboard">Kembali ke Dashboard</a>
+                <div class="d-flex gap-2">
+                    <a class="btn btn-success" href="<?= BASE_URL ?>/dosen/create">Tambah Dosen</a>
+                    <a class="btn btn-primary" href="<?= BASE_URL ?>/dashboard">Kembali ke Dashboard</a>
+                </div>
             </div>
 
-            <div class="table-responsive shadow-sm rounded">
-                <table class="table table-striped table-hover align-middle mb-0">
-                    <thead class="table-primary">
-                        <tr>
-                            <th>NIDN</th>
-                            <th>Nama Dosen</th>
-                                <th>Prodi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach (($dosen ?? []) as $dataDosen): ?>
+            <?php if (isset($dosen) && is_array($dosen)): ?>
+                <div class="table-responsive shadow-sm rounded">
+                    <table class="table table-striped table-hover align-middle mb-0">
+                        <thead class="table-primary">
                             <tr>
-                                <td><?= htmlspecialchars($dataDosen['nidn']) ?></td>
-                                <td><?= htmlspecialchars($dataDosen['nama']) ?></td>
-                                <td><?= htmlspecialchars($dataDosen['prodi']) ?></td>
+                                <th>No</th>
+                                <th>NIDN</th>
+                                <th>Nama</th>
+                                <th>Bidang Keahlian</th>
+                                <th>Aksi</th>
                             </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-            </div>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($dosen as $index => $item): ?>
+                                <tr>
+                                    <td><?= $index + 1 ?></td>
+                                    <td><?= htmlspecialchars($item['nidn']) ?></td>
+                                    <td><?= htmlspecialchars($item['nama']) ?></td>
+                                    <td><?= htmlspecialchars($item['bidang_keahlian']) ?></td>
+                                    <td>
+                                        <div class="d-flex gap-2">
+                                            <a class="btn btn-sm btn-outline-primary" href="<?= BASE_URL ?>/dosen/edit?id=<?= urlencode($item['id']) ?>">Edit</a>
+                                            <a class="btn btn-sm btn-outline-danger" href="<?= BASE_URL ?>/dosen/delete?id=<?= urlencode($item['id']) ?>" onclick="return confirm('Hapus data dosen ini?')">Hapus</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            <?php else: ?>
+                <div class="alert alert-info">Data dosen belum tersedia.</div>
+            <?php endif; ?>
         </main>
     </body>
 </html>

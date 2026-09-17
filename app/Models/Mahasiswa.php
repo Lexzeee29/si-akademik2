@@ -2,40 +2,28 @@
 
 class Mahasiswa
 {
+    private $pdo;
+
+    public function __construct($pdo)
+    {
+        $this->pdo = $pdo;
+    }
+
     public function getAll()
     {
-        return [
-            [
-                'nim' => '23001',
-                'nama' => 'Budi Santoso',
-                'prodi' => 'Teknik Informatika'
-            ],
-            [
-                'nim' => '23002',
-                'nama' => 'Siti Aminah',
-                'prodi' => 'Sistem Informasi'
-            ],
-            [
-                'nim' => '23006',
-                'nama' => 'Andi Wijaya',
-                'prodi' => 'Teknik Sipil'
-            ],
-            [
-                'nim' => '23007',
-                'nama' => 'Fajar Hidayat',
-                'prodi' => 'Manajemen Informatika'
-            ],
-            [
-                'nim' => '23008',
-                'nama' => 'Nur Aisyah',
-                'prodi' => 'Teknik Informatika'
-            ],
-            [
-                'nim' => '23009',
-                'nama' => 'Rizky Ramadhan',
-                'prodi' => 'Sistem Informasi'
-            ]
-        ];
+        $sql = "SELECT mahasiswa.*,
+               prodi.nama AS prodi,
+               dosen.nama AS nama_dosen
+        FROM mahasiswa
+        LEFT JOIN prodi
+            ON mahasiswa.prodi_id = prodi.id
+        LEFT JOIN dosen
+            ON mahasiswa.dosen_id = dosen.id
+        ORDER BY mahasiswa.nama ASC";
+
+        $stmt = $this->pdo->query($sql);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function getByNim($nim)

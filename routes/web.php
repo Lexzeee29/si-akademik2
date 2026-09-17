@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../config/config.php';
+require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../app/Controllers/AuthController.php';
 require_once __DIR__ . '/../app/Controllers/MahasiswaController.php';
 require_once __DIR__ . '/../app/Controllers/DosenController.php';
@@ -37,6 +38,36 @@ if ($url === '' || $url === 'login') {
 
     $controller = new DosenController();
     $controller->index();
+} elseif ($url === 'dosen/create') {
+    $middleware = new AuthMiddleware();
+    $middleware->handle();
+
+    $controller = new DosenController();
+    $controller->create();
+} elseif ($url === 'dosen/store' && $_SERVER['REQUEST_METHOD'] === 'POST') {
+    $middleware = new AuthMiddleware();
+    $middleware->handle();
+
+    $controller = new DosenController();
+    $controller->store();
+} elseif ($url === 'dosen/edit' && isset($_GET['id'])) {
+    $middleware = new AuthMiddleware();
+    $middleware->handle();
+
+    $controller = new DosenController();
+    $controller->edit($_GET['id']);
+} elseif ($url === 'dosen/update' && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['id'])) {
+    $middleware = new AuthMiddleware();
+    $middleware->handle();
+
+    $controller = new DosenController();
+    $controller->update($_GET['id']);
+} elseif ($url === 'dosen/delete' && isset($_GET['id'])) {
+    $middleware = new AuthMiddleware();
+    $middleware->handle();
+
+    $controller = new DosenController();
+    $controller->delete($_GET['id']);
 } else {
     http_response_code(404);
     echo 'Halaman tidak ditemukan.';
